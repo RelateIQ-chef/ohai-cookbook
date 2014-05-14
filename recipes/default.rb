@@ -17,7 +17,13 @@
 # limitations under the License.
 #
 
-reload_ohai = false
+ohai_gem = chef_gem "ohai" do
+  version "6.18.0"
+  action :install
+end
+
+#reload_ohai = false
+reload_ohai = ohai_gem.updated?
 # Add plugin_path from node attributes if missing, and ensure a reload of
 # ohai in that case
 unless Ohai::Config[:plugin_path].include?(node['ohai']['plugin_path'])
